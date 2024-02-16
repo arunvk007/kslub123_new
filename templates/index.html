@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+		<meta charset="utf-8" />
+	<title>AWS-Kattakada</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" crossorigin=""
+		href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"
+				crossorigin=""></script>
+<style type="text/css">
+			
+.navbar{
+background-color:rgb(186, 210, 219);
+margin-bottom: 0px;
+}
+@media only screen and (min-width:  800px) {
+#map {
+height: 800px;
+
+}
+.name{
+font-family: 'Times New Roman', Times, serif;
+font-size: xx-large;
+margin-top:10px;
+}
+.logo{
+
+width:100px;
+height:76px;
+margin-left: 30px;
+}
+.logo2{
+width:80px;
+height:56px;
+margin-left: 150px;
+margin-top: 8px;
+}
+}
+@media only screen and (max-width: 600px) {
+
+#map {
+			height: 1200px;
+
+		}
+
+.name{
+font-family: 'Times New Roman', Times, serif;
+font-size: 10pt;
+margin-top:10px;
+}
+
+.logo{
+
+width:70px;
+height:46px;
+}
+.logo2{
+width:20px;
+height:20px;
+display: none;
+}
+}
+
+</style>
+</head>
+<body>
+		
+		<nav class=" navbar   navbar-light fixed-top  "> 
+            <div class="row">
+                <div class="col-md-3 col-sm-3 ">
+                    <img class="navbar-brand logo"  src="static/img/icfoss_img.svg" alt="icfoss"/>
+                </div>
+            <div class="col-md-6 col-sm-6 text-center">
+                <p class="name">Automatic Weather Station-Kattakkada</p>
+            </div>
+            <div class="col-md-3   col-sm-3 text-left">
+
+         <img  class="logo2" src="static/img/kerala_govt_img.png" alt="kerala_govt_img"/>
+            </div>
+            </div>
+         
+           
+		</nav> 
+		<div class="continer">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xl-12 "  id="map"></div>
+		</div> 
+	
+		<div class="row">
+			
+		<footer class="footer col-md-12 col-sm-12 col-xl-12 ">
+			<div class="lockscreen-footer text-center">
+				 <a href="https://icfoss.in" class="text-black"><b>ICFOSS</b></a><br>
+				All content on this site is available under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) licence.
+			</div>
+		</footer>
+	</div>
+	</div>
+		<div id="url" data-url="/fetch"></div>
+		<script src="/static/js/main.js" crossorigin=""></script>
+</body>
+	
+</html>

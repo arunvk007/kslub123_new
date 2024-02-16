@@ -1,0 +1,209 @@
+$(document).ready(function(){
+var test="";
+var deveui;
+var name;
+var url=$("#url").data("url");
+var map = L.map('map').setView([8.469984047578587, 77.07428546801513], 12);
+
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  attribution: ' <a href="https://icfoss.in" target="_blank">ICFOSS</a> '
+}).addTo(map);
+
+var greenIcon = L.icon({
+iconUrl: '/static/img/gateway.png',
+
+iconSize:     [38, 45], // size of the icon
+iconAnchor:   [38, 45], // point of the icon which will correspond to marker's location
+popupAnchor:  [-20, -45] // point from which the popup should open relative to the iconAnchor
+});
+var awsIcon = L.icon({
+    iconUrl: '/static/img/aws.png',
+    
+    iconSize:     [38, 45], // size of the icon
+    iconAnchor:   [38, 45], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-20, -45] // point from which the popup should open relative to the iconAnchor
+    });
+
+
+
+L.marker([8.511342012128111, 77.04911868197621], {icon: greenIcon}).addTo(map).on('mouseover',mouseOver).bindPopup("Sasthampara Gateway").openPopup();
+
+
+
+function mouseOver(){ 
+    deveui='0000000000000000'
+  }
+
+L.marker([8.469984047578587, 77.07428546801513,{icon: awsIcon}]).on('click', onClick1).on('mouseover',mouseOver1).addTo(map)
+ .bindPopup('DVM NNM HSS Maranalloor, Kattakkada')
+
+ function onClick1(){window.open( "https://redirect.icfoss.org?client=kslub208");}
+
+ function mouseOver1(){ 
+    deveui='0903060000010208'
+    this.openPopup();
+  }
+
+
+ L.marker([8.51250008835944, 77.01064747671836,{icon: awsIcon}]).on('click',onClick2).on('mouseover',mouseOver2).addTo(map)
+ .bindPopup('St.Xaviers HSS , Peyad')
+ 
+ function onClick2(){window.open( "https://redirect.icfoss.org?client=kslub207 ");}
+ function mouseOver2(){
+     
+    deveui='0903060000010207'
+    this.openPopup();
+}
+
+ L.marker([8.476665038288077, 77.01556502568695,{icon: awsIcon}]).on('click', onClick3).on('mouseover',mouseOver3).addTo(map)
+ .bindPopup('Govt. HSS Vilavoorkkal, Malayam')
+ function onClick3(){window.open( "https://redirect.icfoss.org?client=kslub203 ");}
+ function mouseOver3(){ 
+
+    deveui='0903060000010203'
+     this.openPopup();
+    }
+ 
+
+ function onClick4(){window.open( "https://redirect.icfoss.org?client=kslub204 ");}
+ L.marker([8.488257731555766, 77.03956608150747],{icon: awsIcon}).on('click', onClick4).on('mouseover',mouseOver4).bindPopup("Govt. Vocational Girls HSS Malayinkeezhu").addTo(map);
+    
+ function mouseOver4(){ 
+    deveui='0903060000010204'
+    this.openPopup();
+}
+
+
+ L.marker([8.45189750772182, 77.00775838150726],{icon: awsIcon}).on('click', onClick5).on('mouseover',mouseOver5).addTo(map)
+ .bindPopup('VVHSS Nemom')
+
+ function onClick5(){window.open("https://redirect.icfoss.org?client=kslub205 ");}
+ function mouseOver5(){
+    deveui='0903060000010205'
+    this.openPopup();
+}
+ L.marker([8.505024265228807, 77.07599092383568],{icon: awsIcon}).on('click', onClick6).on('mouseover',mouseOver6).addTo(map)
+ .bindPopup('Kulathummal Govt.HSS, Kattakkada')
+
+ function onClick6(){window.open("https://redirect.icfoss.org?client=kslub206  ");}
+ function mouseOver6(){ 
+
+    deveui='0903060000010206'
+    this.openPopup();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+map.on('popupopen', function(event){
+
+var ll = event.popup.getLatLng();
+
+$.ajax({
+      type : 'POST',
+    url:url,
+    headers:{'Authorization':'87fcc0bc765ddd79629404420b65dc7a0eca9114c6e9c45f'},
+    data:{'deveui':deveui},
+    success: function(data) {
+    if (data['status']=="ok")
+    {
+    name=data['name'];
+
+
+test=	'     '  + 
+'     <p><h4><b>'+name+'</b></h4></p>              '  + 
+'     <p><h6>LastSeen:'+data['battery']['time'].substring(0, 10)+','+data['battery']['time'].substring(11, 19)+'+5:30 </h6></p>              '  + 
+'     <table class="table table-striped">  '  + 
+'       <thead>  '  + 
+'         <tr>  '  + 
+'           <th>Parameters</th>  '  + 
+'           <th>Value</th>  '  + 
+'         </tr>  '  + 
+'       </thead>  '  + 
+'       <tbody>  '  + 
+'         <tr>  '  + 
+'           <td>Temperature</td>  '  + 
+'           <td>'+data['temperature']['value']+'&#8451;</td>  '  + 
+'         </tr>  '  + 
+'         <tr>  '  + 
+'           <td>Pressure</td>  '  + 
+'           <td>'+data['pressure']['value']+'&#13169;</td>  '  + 
+'         </tr>  '  + 
+'         <tr>  '  + 
+'           <td>Humidity</td>  '  + 
+'           <td>'+data['humidity']['value']+'&#x25;</td>  '  + 
+'         </tr>  '  + 
+'         <tr>  '  + 
+'           <td>Rain</td>  '  + 
+'           <td>'+data['rain']['value']+'</td>  '  + 
+'         </tr>  '  + 
+'         <tr>  '  + 
+'           <td>WindSpeed</td>  '  + 
+'           <td>'+data['windspeed']['value']+'Kmph</td>  '  + 
+'         </tr>  '  + 
+'         <tr>  '  + 
+'           <td>WindDirection</td>  '  + 
+'           <td>'+data['winddir']['value']+'</td>  '  + 
+'         </tr>  '  + 
+'         <tr>  '  + 
+'           <td>Rssi</td>  '  + 
+'           <td>'+data['rssi']['value']+'</td>  '  + 
+'         </tr>  '  + 
+'       </tbody>  '  + 
+'     </table>  '   +
+'<p style="color:blue;"><b>Click icon to  see full view</b></p>' 
+
+
+
+
+
+setTimeout(
+function() 
+{
+
+event.popup.setContent(test);
+
+}, 1000);
+
+
+    }
+    
+    else {
+        
+    
+        name=data['name'];
+        setTimeout(
+function() 
+{
+
+event.popup.setContent('No data available  ');
+
+
+}, 1000);
+    }
+    }
+    });	 
+
+
+});
+
+map.on('popupclose', function(event){
+
+event.popup.setContent(name);
+name=""
+
+
+
+
+
+});	
+});
